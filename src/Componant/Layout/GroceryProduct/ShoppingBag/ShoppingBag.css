@@ -1,0 +1,14 @@
+
+.shopping-bag{
+    background: #EDEDED;
+
+}
+.btn-primary{
+   border: none !important;
+}
+.inc-dec-btn{
+   border-bottom: 2px solid gray;
+}
+.item-details{
+   border-bottom: 2px solid gray;
+}

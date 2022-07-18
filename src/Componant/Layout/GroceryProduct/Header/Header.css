@@ -1,0 +1,33 @@
+
+
+.nav{
+    background: #EEEEEE;
+opacity: 0.75;
+}
+.form-control {
+    border: none;
+}
+.navbar{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    background: white;
+    /* opacity: 0.8; */
+    padding-bottom: 0.4rem !important;
+
+}
+.navbar-brand{
+    font-weight: 900;
+}
+.dot-img{
+    height: 0.5rem;
+    top: 1rem;
+    left: 1.5rem;
+}
+.header-heading{
+    font-weight: 900;
+    font-size: 3rem !important;
+}
+.nav-img{
+    height: 1.5rem;
+    margin-top: 0.6rem;
+}
