@@ -8,26 +8,12 @@ import Dasboard from './Componant/Layout/Dasboard/Dasboard';
 import Login from './Componant/Layout/Login/Login';
 import Product from './Componant/Product/Product';
 import React from 'react';
+import ContactUs from './Componant/Layout/ContactUs/ContactUs'
 import { useAuth } from './Componant/Layout/Context/AuthContext';
 import { useHistory } from 'react-router-dom';
 // import { Router } from 'react-router-dom';
 
 function App() {
-    //   const product = useHistory();
-    //   const login = useHistory();
-
-    //   const useAuth = () => {
-    //       const user = { Login: false };
-    //       console.log('user.Login=', user.Login);
-    //       return user && user.Login;
-    //   };
-    //   const ProtectedRoutes = () => {
-    //       const isAuth = useAuth;
-    //       console.log('hi auth');
-    //       console.log('useAuth=', useAuth);
-    //       return isAuth ? product.push('/product') : login.push('/login');
-    //   };
-
     return (
         <Router>
             <AuthProvider>
@@ -35,10 +21,6 @@ function App() {
                     <div className="sign-upDiv">
                         <Switch>
                             <Route exact path="/" component={Product} />
-                            {/* <PrivateRoute
-                                path="/update-profile"
-                                component={UpdateProfile}
-                            /> */}
                             <Route exact path="/sign-up">
                                 <SignUp />
                             </Route>
@@ -48,6 +30,10 @@ function App() {
                             <Route exact path="/dasboard">
                                 <Dasboard />
                             </Route>
+                            <Route exact path="/contactUs">
+                                <ContactUs />
+                            </Route>
+                            
                         </Switch>
                     </div>
                 </div>

@@ -1,0 +1,16 @@
+
+form{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding-top: 2rem;
+}
+label{
+   /* margin: 2rem; */
+}
+.ouput-section{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   color: blue;
+}

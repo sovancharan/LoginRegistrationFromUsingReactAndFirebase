@@ -3,7 +3,9 @@ import { Container } from 'react-bootstrap';
 import './Header.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+
 // import NavDropdown from "react-bootstrap/NavDropdown";
+
 
 const Header = (props) => {
     //  console.log('props', props.headerData.NavbarHeader);
@@ -59,6 +61,9 @@ const Header = (props) => {
                                 className="fs-5 text-success fw-bolder pt-3"
                             >
                                 {props.headerData.Login}
+                            </Nav.Link>
+                            <Nav.Link href='/contactUs' className='mt-2 fw-bold'>
+                              Contact Us
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

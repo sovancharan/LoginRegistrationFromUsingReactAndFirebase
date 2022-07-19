@@ -11,6 +11,9 @@ const Dasboard = () => {
     const products = () => {
         dasboard.push('/');
     };
+    const contactUs=()=>{
+      dasboard.push('/contactUs')
+    }
     async function handleSubmit(e) {
         try {
             await logout();
@@ -18,6 +21,7 @@ const Dasboard = () => {
             alert('can not log out');
         }
     }
+    console.log('dasboard=',curentUser);
     return (
         <>
             {curentUser && (
@@ -32,7 +36,10 @@ const Dasboard = () => {
                             Log Out
                         </Button>
                         <Button onClick={products} as="a" variant="success">
-                            Product
+                            Products
+                        </Button>
+                        <Button onClick={contactUs} as="a" variant="success">
+                            ContactUs
                         </Button>
                     </Stack>
                 </Card>
