@@ -1,9 +1,79 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './ShoppingBag.css';
 import { Col, Container, Row, Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/esm/Button';
 
 const ShoppingBag = (props) => {
+    const [value1, setValue1] = useState(1);
+    const [value2, setValue2] = useState(1);
+    const [value3, setValue3] = useState(1);
+    const [subTotal, setSubTotal] = useState(100);
+    const [total, setTotal] = useState(145);
+    //  const [items, setItems] = useState(Datas);
+    var Datas = {
+        value1: value1,
+        value2: value2,
+        value3: value3,
+        subTotal: subTotal,
+        total: total,
+    };
+
+    //  console.log("iitt",items);
+
+    localStorage.setItem('datas', JSON.stringify(Datas));
+
+    let getVal = JSON.parse(localStorage.getItem('datas'));
+
+    console.log('kldfvkdvn', getVal);
+
+    // useEffect(() => {
+    //     localStorage.setItem('items', JSON.stringify(items));
+    // }, [items]);
+
+    //    useEffect(() => {
+    //        const items = JSON.parse(localStorage.getItem('items'));
+    //        if (items) {
+    //            setItems(items);
+    //        }
+    //    }, []);
+
+    const incBtn1 = () => {
+        setValue1(value1 + 1);
+        setSubTotal(subTotal + 100);
+        setTotal(total + 100);
+    };
+    const incBtn2 = () => {
+        setValue2(value2 + 1);
+        setSubTotal(subTotal + 100);
+        setTotal(total + 100);
+    };
+    const incBtn3 = () => {
+        setValue3(value3 + 1);
+        setSubTotal(subTotal + 100);
+        setTotal(total + 100);
+    };
+    const decBtn1 = () => {
+        if (value1 > 1) {
+            setValue1(value1 - 1);
+            setSubTotal(subTotal - 100);
+            setTotal(total - 100);
+        }
+    };
+    const decBtn2 = () => {
+        if (value2 > 1) {
+            setValue2(value2 - 1);
+            setSubTotal(subTotal - 100);
+            setTotal(total - 100);
+        }
+    };
+    const decBtn3 = () => {
+        if (value3 > 1) {
+            setValue3(value3 - 1);
+            setSubTotal(subTotal - 100);
+            setTotal(total - 100);
+        }
+    };
+
     return (
         <>
             <Card.Body className="shopping-bag pb-5">
@@ -22,11 +92,13 @@ const ShoppingBag = (props) => {
 
                     <Row>
                         <Col lg={8} md={8} sm={8}>
-                            <Card.Title className='item-details'>{props.bagData.itemDetails}</Card.Title>
+                            <Card.Title className="item-details">
+                                {props.bagData.itemDetails}
+                            </Card.Title>
 
                             {/* <hr /> */}
                             <Card.Body className="d-flex p-0">
-                                <Card.Body className='p-0'>
+                                <Card.Body className="p-0">
                                     <Card.Img
                                         className="img-fluid"
                                         src="static/img/meat.png"
@@ -36,7 +108,7 @@ const ShoppingBag = (props) => {
                                 <Card.Body className="w-100 p-0">
                                     <Card.Body className="ps-4 py-0">
                                         <Card.Body className="d-flex justify-content-between p-0">
-                                            <Card.Body className='p-0'>
+                                            <Card.Body className="p-0">
                                                 <Card.Title>
                                                     {props.bagData.itemHeading}
                                                 </Card.Title>
@@ -50,7 +122,7 @@ const ShoppingBag = (props) => {
                                                     {props.bagData.itemweight}
                                                 </Card.Text>
                                             </Card.Body>
-                                            <Card.Text className='p-0'>
+                                            <Card.Text className="p-0">
                                                 <Card.Img
                                                     className="img-fluid"
                                                     src="static/img/quit 1.png"
@@ -68,20 +140,25 @@ const ShoppingBag = (props) => {
                                                 <Button
                                                     type="button"
                                                     className="btn btn-outline-none bg-white  py-0 my-0 rounded-3 text-dark"
+                                                    onClick={decBtn1}
                                                 >
-                                                    {props.bagData.decBtn}
+                                                    {/* {props.bagData.decBtn} */}
+                                                    -
                                                 </Button>
                                                 <Button
                                                     type="button"
                                                     className="btn btn-outline bg-white mx-1 px-4 py-0 my-0 rounded-3 text-dark"
                                                 >
-                                                    {props.bagData.val}
+                                                    {/* {props.bagData.val} */}
+                                                    {value1}
                                                 </Button>
                                                 <Button
                                                     type="button"
                                                     className="btn btn-outline bg-white  text-dark rounded-3"
+                                                    onClick={incBtn1}
                                                 >
-                                                    {props.bagData.incBtn}
+                                                    {/* {props.bagData.incBtn} */}
+                                                    +
                                                 </Button>
                                             </Card.Body>
                                         </Card.Body>
@@ -91,7 +168,7 @@ const ShoppingBag = (props) => {
                             </Card.Body>
 
                             <Card.Body className="d-flex p-0">
-                                <Card.Body className='px-0'>
+                                <Card.Body className="px-0">
                                     <Card.Img
                                         className="img-fluid"
                                         src="static/img/coffe.png"
@@ -101,7 +178,7 @@ const ShoppingBag = (props) => {
                                 <Card.Body className="w-100 p-0">
                                     <Card.Body className="ps-4 ">
                                         <Card.Body className="d-flex justify-content-between px-0 py-1">
-                                            <Card.Body className='p-0'>
+                                            <Card.Body className="p-0">
                                                 <Card.Title>
                                                     {props.bagData.itemHeading}
                                                 </Card.Title>
@@ -133,20 +210,25 @@ const ShoppingBag = (props) => {
                                                 <Button
                                                     type="button"
                                                     className="btn btn-outline-none bg-white  py-0 my-0 rounded-3 text-dark"
+                                                    onClick={decBtn2}
                                                 >
-                                                    {props.bagData.decBtn}
+                                                    {/* {props.bagData.decBtn} */}
+                                                    -
                                                 </Button>
                                                 <Button
                                                     type="button"
                                                     className="btn btn-outline bg-white mx-1 px-4 py-0 my-0 rounded-3 text-dark"
                                                 >
-                                                    {props.bagData.val}
+                                                    {/* {props.bagData.val} */}
+                                                    {value2}
                                                 </Button>
                                                 <Button
                                                     type="button"
                                                     className="btn btn-outline bg-white  text-dark rounded-3"
+                                                    onClick={incBtn2}
                                                 >
-                                                    {props.bagData.incBtn}
+                                                    {/* {props.bagData.incBtn} */}
+                                                    +
                                                 </Button>
                                             </Card.Body>
                                         </Card.Body>
@@ -156,7 +238,7 @@ const ShoppingBag = (props) => {
                                 </Card.Body>
                             </Card.Body>
                             <Card.Body className="d-flex p-0">
-                                <Card.Body className='p-0'>
+                                <Card.Body className="p-0">
                                     <Card.Img
                                         className="img-fluid"
                                         src="static/img/meat.png"
@@ -166,7 +248,7 @@ const ShoppingBag = (props) => {
                                 <Card.Body className="w-100 p-0">
                                     <Card.Body className="ps-2 py-0 ">
                                         <Card.Body className="d-flex justify-content-between ">
-                                            <Card.Body className='p-0'>
+                                            <Card.Body className="p-0">
                                                 <Card.Title>
                                                     {props.bagData.itemHeading}
                                                 </Card.Title>
@@ -198,20 +280,25 @@ const ShoppingBag = (props) => {
                                                 <Button
                                                     type="button"
                                                     className="btn btn-outline-none bg-white  py-0 my-0 rounded-3 text-dark"
+                                                    onClick={decBtn3}
                                                 >
-                                                    {props.bagData.decBtn}
+                                                    {/* {props.bagData.decBtn} */}
+                                                    -
                                                 </Button>
                                                 <Button
                                                     type="button"
                                                     className="btn btn-outline bg-white mx-1 px-4 py-0 my-0 rounded-3 text-dark"
                                                 >
-                                                    {props.bagData.val}
+                                                    {/* {props.bagData.val} */}
+                                                    {value3}
                                                 </Button>
                                                 <Button
                                                     type="button"
                                                     className="btn btn-outline bg-white  text-dark rounded-3"
+                                                    onClick={incBtn3}
                                                 >
-                                                    {props.bagData.incBtn}
+                                                    {/* {props.bagData.incBtn} */}
+                                                    +
                                                 </Button>
                                             </Card.Body>
                                         </Card.Body>
@@ -241,7 +328,8 @@ const ShoppingBag = (props) => {
                                         Sub-total:
                                     </Card.Text>
                                     <Card.Text className="mb-0">
-                                        {props.orderSummaryData.SubTotal}
+                                        {/* {props.orderSummaryData.SubTotal} */}
+                                        {subTotal}.00$
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Body className="d-flex justify-content-between px-0 py-1">
@@ -273,7 +361,8 @@ const ShoppingBag = (props) => {
                                 <Card.Body className="d-flex justify-content-between py-0">
                                     <Card.Text>Total amount:</Card.Text>
                                     <Card.Text>
-                                        {props.orderSummaryData.TotalAmount}
+                                        {/* {props.orderSummaryData.TotalAmount} */}
+                                        {total}.00$
                                     </Card.Text>
                                 </Card.Body>
                             </Card.Body>
