@@ -2,13 +2,29 @@ import React, { useEffect, useState } from 'react';
 import './ShoppingBag.css';
 import { Col, Container, Row, Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/esm/Button';
+import Cupon from './Cupon';
 
 const ShoppingBag = (props) => {
-    const [value1, setValue1] = useState(1);
-    const [value2, setValue2] = useState(1);
-    const [value3, setValue3] = useState(1);
-    const [subTotal, setSubTotal] = useState(100);
-    const [total, setTotal] = useState(145);
+    const [flag, setFlag] = useState(false);
+    const [discount, setDiscount] = useState(0);
+    const [coupnCode, setCuponCode] = useState('');
+    const [input, setInput] = useState();
+    const [value1, setValue1] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.value1 ?? 1
+    );
+    const [value2, setValue2] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.value2 ?? 1
+    );
+    const [value3, setValue3] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.value3 ?? 1
+    );
+    const [subTotal, setSubTotal] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.subTotal ?? 100
+    );
+    const [total, setTotal] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.total ?? 130
+    );
+    const [offerShopping, setOfferShopping] = useState(0);
     //  const [items, setItems] = useState(Datas);
     var Datas = {
         value1: value1,
@@ -22,58 +38,53 @@ const ShoppingBag = (props) => {
 
     localStorage.setItem('datas', JSON.stringify(Datas));
 
-    let getVal = JSON.parse(localStorage.getItem('datas'));
-
-    console.log('kldfvkdvn', getVal);
-
-    // useEffect(() => {
-    //     localStorage.setItem('items', JSON.stringify(items));
-    // }, [items]);
-
-    //    useEffect(() => {
-    //        const items = JSON.parse(localStorage.getItem('items'));
-    //        if (items) {
-    //            setItems(items);
-    //        }
-    //    }, []);
+    parseInt(offerShopping);
+    console.log('vat', offerShopping);
 
     const incBtn1 = () => {
         setValue1(value1 + 1);
-        setSubTotal(subTotal + 100);
-        setTotal(total + 100);
+        setSubTotal(subTotal + 16);
+        // setDiscount((30 + subTotal) * offerShopping / 100);
+
+        setTotal(30 + subTotal);
+        setDiscount((total * offerShopping) / 100);
     };
     const incBtn2 = () => {
         setValue2(value2 + 1);
-        setSubTotal(subTotal + 100);
-        setTotal(total + 100);
+        setSubTotal(subTotal + 16);
+        setTotal(subTotal * (offerShopping / 100));
+        setDiscount(total * (offerShopping / 100));
     };
     const incBtn3 = () => {
         setValue3(value3 + 1);
-        setSubTotal(subTotal + 100);
-        setTotal(total + 100);
+        setSubTotal(subTotal + 16);
+        setTotal(total * (offerShopping / 100));
+        setDiscount(total * (offerShopping / 100));
     };
     const decBtn1 = () => {
         if (value1 > 1) {
             setValue1(value1 - 1);
-            setSubTotal(subTotal - 100);
-            setTotal(total - 100);
+            setSubTotal(subTotal - 16);
+            setTotal(total-16);
         }
     };
     const decBtn2 = () => {
         if (value2 > 1) {
             setValue2(value2 - 1);
-            setSubTotal(subTotal - 100);
-            setTotal(total - 100);
+            setSubTotal(subTotal - 16);
+            setTotal(total - 16);
         }
     };
     const decBtn3 = () => {
         if (value3 > 1) {
             setValue3(value3 - 1);
-            setSubTotal(subTotal - 100);
-            setTotal(total - 100);
+            setSubTotal(subTotal - 16);
+            setTotal(total - 16);
         }
     };
-
+    const applyCupon = () => {
+        setFlag(true);
+    };
     return (
         <>
             <Card.Body className="shopping-bag pb-5">
@@ -342,19 +353,34 @@ const ShoppingBag = (props) => {
                                 </Card.Body>
                                 <Card.Body className="d-flex justify-content-between px-0 py-1">
                                     <Card.Text className="mb-0">
-                                        Coupon discount:
+                                        {/* Coupon discount: */}
+                                        <input
+                                            type="text"
+                                            placeholder="Enter your cupon code"
+                                            className='border-0'
+                                        />
                                     </Card.Text>
                                     <Card.Text className="mb-0 text-danger">
                                         Apply Coupon
                                     </Card.Text>
+                                    {/* <p>{coupnCode}</p> */}
+
+                                    {/* <Cupon
+                                        setOfferShopping={setOfferShopping}
+                                        data={Datas}
+                                        setCuponcode={setCuponCode}
+                                        setDiscount={setDiscount}
+                                        // setTotal={setTotal}
+                                    /> */}
                                 </Card.Body>
 
                                 <Card.Body className="d-flex justify-content-between px-0 py-0">
                                     <Card.Text className="mb-0">
-                                        vat(15%):
+                                        Discount({offerShopping}%):
                                     </Card.Text>
                                     <Card.Text className="mb-0">
-                                        {props.orderSummaryData.Vat}
+                                        {/* {props.orderSummaryData.Vat} */}
+                                        {discount}.00
                                     </Card.Text>
                                 </Card.Body>
                                 {/* <hr /> */}

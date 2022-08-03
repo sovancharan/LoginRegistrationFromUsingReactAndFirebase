@@ -12,3 +12,6 @@
 .item-details{
    border-bottom: 2px solid gray;
 }
+.applyCupon:hover{
+    cursor: pointer;
+}
