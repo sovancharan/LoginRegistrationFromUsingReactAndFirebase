@@ -25,7 +25,7 @@ const Header = (props) => {
                         className="justify-content-end"
                     >
                         <Nav className="">
-                            <Nav.Link className="d-flex">
+                            <div className="d-flex pt-2">
                                 <img
                                     className="nav-img"
                                     src="static/img/list.png"
@@ -37,8 +37,8 @@ const Header = (props) => {
                                 >
                                     {props.headerData.List}
                                 </Nav.Link>
-                            </Nav.Link>
-                            <Nav.Link className="d-flex">
+                            </div>
+                            <div className="d-flex pt-2">
                                 <img
                                     className="position-relative dot-img"
                                     src="static/img/Ellipse 1.png"
@@ -55,7 +55,7 @@ const Header = (props) => {
                                 >
                                     {props.headerData.Busket}
                                 </Nav.Link>
-                            </Nav.Link>
+                            </div>
                             <Nav.Link
                                 href="/login"
                                 className="fs-5 text-success fw-bolder pt-3"

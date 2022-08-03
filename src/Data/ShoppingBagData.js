@@ -7,7 +7,7 @@ const ShoppingBagData={
     itemDetails:"Item Details",
     itemHeading:"La Carne Mutton seekh kebab",
     itemquantity:"500g per tray",
-    itemPrice:"$16.75 ea",
+    itemPrice:"$160 ea",
     itemweight:"400g avg.",
     incBtn:"+",
     val:"1",

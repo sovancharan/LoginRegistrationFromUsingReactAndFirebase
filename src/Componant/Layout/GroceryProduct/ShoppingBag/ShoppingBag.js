@@ -3,27 +3,19 @@ import './ShoppingBag.css';
 import { Col, Container, Row, Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/esm/Button';
 import Cupon from './Cupon';
-
+import CouponData from '../../../../Data/CouponData';
+import { useRef } from 'react';
 const ShoppingBag = (props) => {
     const [flag, setFlag] = useState(false);
-    const [discount, setDiscount] = useState(0);
+
     const [coupnCode, setCuponCode] = useState('');
     const [input, setInput] = useState();
-    const [value1, setValue1] = useState(
-        JSON.parse(localStorage.getItem('datas'))?.value1 ?? 1
-    );
-    const [value2, setValue2] = useState(
-        JSON.parse(localStorage.getItem('datas'))?.value2 ?? 1
-    );
-    const [value3, setValue3] = useState(
-        JSON.parse(localStorage.getItem('datas'))?.value3 ?? 1
-    );
-    const [subTotal, setSubTotal] = useState(
-        JSON.parse(localStorage.getItem('datas'))?.subTotal ?? 100
-    );
-    const [total, setTotal] = useState(
-        JSON.parse(localStorage.getItem('datas'))?.total ?? 130
-    );
+    const [value1, setValue1] = useState(1);
+    const [value2, setValue2] = useState(1);
+    const [value3, setValue3] = useState(1);
+    const [subTotal, setSubTotal] = useState(480);
+    const [total, setTotal] = useState(510);
+    const [discount, setDiscount] = useState(0);
     const [offerShopping, setOfferShopping] = useState(0);
     //  const [items, setItems] = useState(Datas);
     var Datas = {
@@ -34,57 +26,66 @@ const ShoppingBag = (props) => {
         total: total,
     };
 
-    //  console.log("iitt",items);
-
-    localStorage.setItem('datas', JSON.stringify(Datas));
-
-    parseInt(offerShopping);
-    console.log('vat', offerShopping);
-
     const incBtn1 = () => {
         setValue1(value1 + 1);
-        setSubTotal(subTotal + 16);
-        // setDiscount((30 + subTotal) * offerShopping / 100);
+        setSubTotal(subTotal + 160);
 
-        setTotal(30 + subTotal);
-        setDiscount((total * offerShopping) / 100);
+        setTotal(subTotal - discount + 30 + 160);
     };
     const incBtn2 = () => {
         setValue2(value2 + 1);
-        setSubTotal(subTotal + 16);
-        setTotal(subTotal * (offerShopping / 100));
-        setDiscount(total * (offerShopping / 100));
+        setSubTotal(subTotal + 160);
+
+        setTotal(subTotal - discount + 30 + 160);
     };
     const incBtn3 = () => {
         setValue3(value3 + 1);
-        setSubTotal(subTotal + 16);
-        setTotal(total * (offerShopping / 100));
-        setDiscount(total * (offerShopping / 100));
+        setSubTotal(subTotal + 160);
+
+        setTotal(subTotal - discount + 30 + 160);
     };
     const decBtn1 = () => {
         if (value1 > 1) {
             setValue1(value1 - 1);
-            setSubTotal(subTotal - 16);
-            setTotal(total-16);
+            setSubTotal(subTotal - 160);
+
+            setTotal(subTotal - discount - 160 + 30);
         }
     };
     const decBtn2 = () => {
         if (value2 > 1) {
             setValue2(value2 - 1);
-            setSubTotal(subTotal - 16);
-            setTotal(total - 16);
+            setSubTotal(subTotal - 160);
+
+            setTotal(subTotal - discount - 160 + 30);
         }
     };
     const decBtn3 = () => {
         if (value3 > 1) {
             setValue3(value3 - 1);
-            setSubTotal(subTotal - 16);
-            setTotal(total - 16);
+            setSubTotal(subTotal - 160);
+
+            setTotal(subTotal - discount - 160 + 30);
         }
     };
-    const applyCupon = () => {
-        setFlag(true);
+    const cuponClick = () => {
+        CouponData.map((item) => {
+            if (item.code === input) {
+                const dis = subTotal - (subTotal * item.discount) / 100;
+                setDiscount(dis);
+                setTotal(subTotal - dis + 30);
+                setOfferShopping(item.discount);
+                console.log('dis', dis);
+                console.log('sub', subTotal);
+                console.log(item.discount);
+                console.log(typeof item.discount);
+            }
+        });
     };
+    const inputChange = (e) => {
+        setInput(e.target.value);
+    };
+
     return (
         <>
             <Card.Body className="shopping-bag pb-5">
@@ -357,10 +358,15 @@ const ShoppingBag = (props) => {
                                         <input
                                             type="text"
                                             placeholder="Enter your cupon code"
-                                            className='border-0'
+                                            className="border-1"
+                                            //     value=""
+                                            onChange={inputChange}
                                         />
                                     </Card.Text>
-                                    <Card.Text className="mb-0 text-danger">
+                                    <Card.Text
+                                        className="mb-0 text-danger applyCupon"
+                                        onClick={cuponClick}
+                                    >
                                         Apply Coupon
                                     </Card.Text>
                                     {/* <p>{coupnCode}</p> */}

@@ -128,7 +128,7 @@ const ImportantLink = (props) => {
                   {props.knowUs.heading}
                 </Card.Title>
               </Card.Body>
-              <Col class="text-white d-flex flex-column justify-content-center ">
+              <Col className="text-white d-flex flex-column justify-content-center ">
                 <Col>
                   <Nav.Link className="text-white p-0" href="/">
                     {props.knowUs.site}
