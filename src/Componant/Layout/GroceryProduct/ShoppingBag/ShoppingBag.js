@@ -6,8 +6,6 @@ import Cupon from './Cupon';
 import CouponData from '../../../../Data/CouponData';
 import { useRef } from 'react';
 const ShoppingBag = (props) => {
-    const [flag, setFlag] = useState(false);
-
     const [coupnCode, setCuponCode] = useState('');
     const [input, setInput] = useState();
     const [value1, setValue1] = useState(1);
@@ -17,7 +15,9 @@ const ShoppingBag = (props) => {
     const [total, setTotal] = useState(510);
     const [discount, setDiscount] = useState(0);
     const [offerShopping, setOfferShopping] = useState(0);
-    //  const [items, setItems] = useState(Datas);
+     const [disabled, setDisabled] = useState(false);
+    
+        
     var Datas = {
         value1: value1,
         value2: value2,
@@ -81,6 +81,7 @@ const ShoppingBag = (props) => {
                 console.log(typeof item.discount);
             }
         });
+        setDisabled(!disabled);
     };
     const inputChange = (e) => {
         setInput(e.target.value);
