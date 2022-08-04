@@ -8,47 +8,106 @@ import { useRef } from 'react';
 const ShoppingBag = (props) => {
     const [coupnCode, setCuponCode] = useState('');
     const [input, setInput] = useState();
-    const [value1, setValue1] = useState(1);
-    const [value2, setValue2] = useState(1);
-    const [value3, setValue3] = useState(1);
-    const [subTotal, setSubTotal] = useState(480);
-    const [total, setTotal] = useState(510);
-    const [discount, setDiscount] = useState(0);
-    const [offerShopping, setOfferShopping] = useState(0);
-     const [disabled, setDisabled] = useState(false);
-    
-        
+    const [value1, setValue1] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.value1 ?? 1
+    );
+    const [value2, setValue2] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.value2 ?? 1
+    );
+    const [value3, setValue3] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.value3 ?? 1
+    );
+    const [subTotal, setSubTotal] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.subTotal ?? 480
+    );
+    const [total, setTotal] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.total ?? 510
+    );
+    const [discount, setDiscount] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.discount ?? 0
+    );
+    const [offerShopping, setOfferShopping] = useState(
+        JSON.parse(localStorage.getItem('datas'))?.offerShopping ?? 0
+    );
+    const [disabled, setDisabled] = useState(false);
+
     var Datas = {
         value1: value1,
         value2: value2,
         value3: value3,
         subTotal: subTotal,
         total: total,
+        discount: discount,
+        offerShopping: offerShopping,
     };
+
+    //     localStorage.setItem('datas', JSON.stringify(Datas));
 
     const incBtn1 = () => {
         setValue1(value1 + 1);
         setSubTotal(subTotal + 160);
 
+        if (offerShopping > 0) {
+            let sub = subTotal + 160;
+            const dis = sub - (sub * offerShopping) / 100;
+            //     setDiscount(dis);
+            setTotal(dis + 30);
+            setDiscount((sub * offerShopping) / 100);
+
+            //     setTotal(sub - dis + 30);
+
+            return;
+        }
         setTotal(subTotal - discount + 30 + 160);
     };
     const incBtn2 = () => {
         setValue2(value2 + 1);
         setSubTotal(subTotal + 160);
 
+        if (offerShopping > 0) {
+            let sub = subTotal + 160;
+            const dis = sub - (sub * offerShopping) / 100;
+            //     setDiscount(dis);
+            setTotal(dis + 30);
+            setDiscount((sub * offerShopping) / 100);
+
+            //     setTotal(sub - dis + 30);
+
+            return;
+        }
         setTotal(subTotal - discount + 30 + 160);
     };
     const incBtn3 = () => {
         setValue3(value3 + 1);
         setSubTotal(subTotal + 160);
 
+        if (offerShopping > 0) {
+            let sub = subTotal + 160;
+            const dis = sub - (sub * offerShopping) / 100;
+            //     setDiscount(dis);
+            setTotal(dis + 30);
+            setDiscount((sub * offerShopping) / 100);
+
+            //     setTotal(sub - dis + 30);
+
+            return;
+        }
         setTotal(subTotal - discount + 30 + 160);
     };
     const decBtn1 = () => {
         if (value1 > 1) {
             setValue1(value1 - 1);
             setSubTotal(subTotal - 160);
+            if (offerShopping > 0) {
+                let sub = subTotal - 160;
+                const disck = (sub * offerShopping) / 100;
+                const dis = sub - disck+30;
 
+                setDiscount(disck);
+                setTotal(dis);
+
+                return;
+            }
             setTotal(subTotal - discount - 160 + 30);
         }
     };
@@ -57,6 +116,16 @@ const ShoppingBag = (props) => {
             setValue2(value2 - 1);
             setSubTotal(subTotal - 160);
 
+            if (offerShopping > 0) {
+                let sub = subTotal - 160;
+                const disck = (sub * offerShopping) / 100;
+                const dis = sub - disck + 30;
+
+                setDiscount(disck);
+                setTotal(dis);
+
+                return;
+            }
             setTotal(subTotal - discount - 160 + 30);
         }
     };
@@ -65,15 +134,32 @@ const ShoppingBag = (props) => {
             setValue3(value3 - 1);
             setSubTotal(subTotal - 160);
 
+            if (offerShopping > 0) {
+              let sub = subTotal - 160;
+              const disck = (sub * offerShopping) / 100;
+              const dis = sub - disck + 30;
+
+              setDiscount(disck);
+              setTotal(dis);
+
+                return;
+            }
             setTotal(subTotal - discount - 160 + 30);
         }
     };
     const cuponClick = () => {
         CouponData.map((item) => {
             if (item.code === input) {
-                const dis = subTotal - (subTotal * item.discount) / 100;
-                setDiscount(dis);
-                setTotal(subTotal - dis + 30);
+               
+                const disck = (subTotal * item.discount) / 100;
+                 const dis = subTotal -disck+30
+               
+                // setDiscount(dis);
+                // setTotal(subTotal - dis + 30);
+               
+                setDiscount(disck);
+                console.log("disk",disck);
+                 setTotal(dis);
                 setOfferShopping(item.discount);
                 console.log('dis', dis);
                 console.log('sub', subTotal);
@@ -361,6 +447,7 @@ const ShoppingBag = (props) => {
                                             placeholder="Enter your cupon code"
                                             className="border-1"
                                             //     value=""
+                                            disabled={disabled}
                                             onChange={inputChange}
                                         />
                                     </Card.Text>
